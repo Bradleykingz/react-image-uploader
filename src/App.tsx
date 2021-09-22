@@ -1,15 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
+import ImagePreview from "./components/uploader/components/ImagePreview";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </header>
-    </div>
-  );
+export type LocalFile = {
+    src: string,
+    file: File | null
 }
 
-export default App;
+function ImageUploader (){
+
+    const [selectedImages, setSelectedImages] = useState<Array<LocalFile>>([]);
+
+    const onSelectImage = (e: React.ChangeEvent<HTMLInputElement>)=> {
+        const fileList: Array<FileList | null> = [e.target.files];
+        const selectedImages: Array<LocalFile> = [];
+        const files = fileList?.[0]
+
+        if (files?.length) {
+            for (let i = 0; i < files.length; i++) {
+                const currentFile = files[i];
+
+                const newSource = URL.createObjectURL(currentFile);
+
+                selectedImages.push({
+                    src: newSource,
+                    file: currentFile,
+                });
+
+                setSelectedImages(selectedImages);
+            }
+        }
+    }
+
+    return (
+        <div>
+            <ImagePreview images={selectedImages}/>
+
+            <input
+                type="file"
+                name="file"
+                multiple
+                onChange={onSelectImage}
+            />
+        </div>
+    );
+}
+
+export default ImageUploader;
+
