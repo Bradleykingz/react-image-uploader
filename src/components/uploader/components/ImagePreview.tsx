@@ -11,7 +11,7 @@ const ImagePreview = (props: {images: Array<LocalFile>})=> {
                 {
                     props.images?.map(image=> (
                         <>
-                            <Image src={image.src}/>
+                            <Image src={image.src} alt={''}/>
                         </>
                     ))
                 }
@@ -27,12 +27,12 @@ const ImagePreviewContainer = styled.div`
   gap: 1rem;
 `
 
-const Image = (props: { src: string }) => {
+const Image = (props: { src: string, alt: string }) => {
 
     return (
         <>
             <ImageContainer>
-                <img src={props.src} alt={''}/>
+                <img src={props.src} alt={props.alt}/>
             </ImageContainer>
         </>
     );
