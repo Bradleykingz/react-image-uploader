@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import axios from "axios";
-import {Image, ImagePreviewContainer} from "./ImagePreview";
+import {Image, ImagePreview, ImagePreviewContainer} from "./ImagePreview";
 import styled from "styled-components";
 import Button from "./Button";
 import {LocalFile} from "../App";
@@ -84,32 +84,12 @@ function ImageUploader (){
     return (
 
         <div>
-            {
-                selectedImages?.length ? (
-                    <>
-
-                        <ImagePreviewContainer>
-                            {
-                                selectedImages?.map((image, index) => (
-                                    <>
-                                        <Image onClickCloseButton={() => removeImage(index)}
-                                               src={image.src} alt={''}/>
-                                    </>
-                                ))
-                            }
-                        </ImagePreviewContainer>
-                        {
-                            uploadIndex ? (
-                                <div>
-                                    <p>Uploading: image {uploadIndex}/{totalCount} - {uploadProgress}%</p>
-                                </div>
-                            ) : <span/>
-                        }
-
-                    </>
-
-                ): <p>No selected images</p>
-            }
+            <ImagePreview
+                images={selectedImages}
+                onRemoveImage={removeImage}
+                uploadIndex={uploadIndex}
+                totalCount={totalCount}
+                uploadProgress={uploadProgress}/>
 
             <Buttons
                 onClickUpload={() => upload(selectedImages)}
@@ -141,6 +121,7 @@ const Buttons = (props: ButtonsProps)=> {
                 name="file"
                 ref={buttonRef}
                 multiple
+                accept="image/*"
                 onChange={props.onSelectImage}
             />
 
