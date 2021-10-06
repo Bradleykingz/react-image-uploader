@@ -4,7 +4,7 @@ This code is from a two-part series on how to build an image uploader component 
 
 ## Part 1 Overview
 - 
-Having completed part 1 [at this blog post](TODO),
+Having completed part 1 [at this blog post](https://thekenyandev.com/blog/buildng-an-image-uploader-in-react/),
 it can upload multiple images and save them to the local component state.
  
 
